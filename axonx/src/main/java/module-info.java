@@ -1,4 +1,4 @@
-module com.example.axonx {
+module com.example.axons {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;
@@ -11,6 +11,6 @@ module com.example.axonx {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
 
-    opens com.example.axonx to javafx.fxml;
-    exports com.example.axonx;
+    opens com.example.axons to javafx.fxml;
+    exports com.example.axons;
 }

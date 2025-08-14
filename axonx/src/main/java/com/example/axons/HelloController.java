@@ -1,4 +1,4 @@
-package com.example.axonx;
+package com.example.axons;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
