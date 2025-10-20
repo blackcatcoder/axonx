@@ -30,8 +30,8 @@ import java.time.LocalDateTime;
 // test 3:
 
 /*
+
 test case 1:
--
 
 test 3:
 - turn off screen
@@ -43,6 +43,11 @@ test 3:
 
 
 public class AxonX extends Application {
+    private static final int TIMER_PARAM = 1;
+    //private static final int TIMER_PARAM = 100; //100
+
+    private static final int LOOP_LIMIT = 10;
+
 
     public static void main(String[] args) {
         launch(args);
@@ -63,9 +68,7 @@ public class AxonX extends Application {
     }
 
     private void execute(Data data) {
-
         System.out.println("seconds: " + data.seconds);
-
         System.out.println("start time: " + LocalDateTime.now().toLocalTime());
 
         Robot robot = new Robot();
@@ -87,14 +90,12 @@ public class AxonX extends Application {
             doubleClick(robot);
 
             System.out.println("Double-clicked at (" + x + ", " + y + ")");
-
             System.out.println("end time: " + LocalDateTime.now().toLocalTime());
 
-            if (data.seconds == 3000) {
+            if (data.index == LOOP_LIMIT) {
                 System.out.println("the last one -> end program");
                 Platform.exit();
             }
-
         });
 
         delay.play();
@@ -102,46 +103,44 @@ public class AxonX extends Application {
 
     @Override
     public void start(Stage stage) {
+        int timer = 6;
+        int index = 1;
 
-        //Data data0 = new Data(25, 625, 6);
-       // execute(data0);
+        for(int i = 0; i < LOOP_LIMIT; i++) {
+            Data data;
 
+            // break point
+            if(i+1 == LOOP_LIMIT){
+                data = new Data(25, 225, timer* TIMER_PARAM, index);
+                execute(data);
+                break;
+            }
 
-        Data data1 = new Data(25, 25, 600);
-        execute(data1);
+            // running
+            if(i % 2 == 0){
+                data = new Data(25, 25, timer* TIMER_PARAM, index);
+                execute(data);
+            } else {
+                 data =  new Data(25, 125, timer* TIMER_PARAM, index);
+                execute(data);
+            }
 
-        Data data2 = new Data(25, 125, 1200);
-        execute(data2);
-
-        Data data3 = new Data(25, 225, 1800);
-        execute(data3);
-
-        Data data4 = new Data(25, 325, 2400);
-        execute(data4);
-
-        Data data5 = new Data(25, 425, 3000);
-        execute(data5);
-
-//        Data data6 = new Data(25, 525, 3600);
-//        execute(data6);
-//
-//        Data data7 = new Data(25, 625, 4200);
-//        execute(data7);
-
-        // start at 6:00
-
-
+            timer = timer + 6;
+            index = index + 1;
+        }
     }
 
     private static class Data {
         public int x;
         public int y;
         public int seconds;
+        public int index;
 
-        public Data(int x, int y, int seconds) {
+        public Data(int x, int y, int seconds, int index) {
             this.x = x;
             this.y = y;
             this.seconds = seconds;
+            this.index=index;
         }
     }
 }
