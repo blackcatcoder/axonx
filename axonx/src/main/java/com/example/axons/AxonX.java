@@ -43,10 +43,28 @@ test 3:
 
 
 public class AxonX extends Application {
-    private static final int TIMER_PARAM = 1;
-    //private static final int TIMER_PARAM = 100; //100
+    //private static final int TIMER_PARAM = 2;
+    private static final int TIMER_PARAM = 100; //100
 
-    private static final int LOOP_LIMIT = 10;
+
+    private static final int LOOP_LIMIT = 6;
+    //private static final int LOOP_LIMIT = 10;
+
+
+    /*
+
+    40 minutes
+    TIMER_PARAM: 100
+    LOOP_LIMIT: 4
+    = ((100 * 6) / 60) * 4 = 40 minutes
+
+    100 minutes
+    TIMER_PARAM: 100
+    LOOP_LIMIT: 10
+    = ((100 * 6) / 60) * 10 = 100 minutes
+
+     */
+
 
 
     public static void main(String[] args) {
@@ -92,7 +110,11 @@ public class AxonX extends Application {
             System.out.println("Double-clicked at (" + x + ", " + y + ")");
             System.out.println("end time: " + LocalDateTime.now().toLocalTime());
 
-            if (data.index == LOOP_LIMIT) {
+//            if(data.index == 6){
+//                System.out.println("the first time");
+//            }
+
+            if (data.index == LOOP_LIMIT+2) {
                 System.out.println("the last one -> end program");
                 Platform.exit();
             }
@@ -110,18 +132,41 @@ public class AxonX extends Application {
             Data data;
 
             // break point
-            if(i+1 == LOOP_LIMIT){
-                data = new Data(25, 225, timer* TIMER_PARAM, index);
+//            if(i+1 == 6){//225
+//                // button refresh
+//                data = new Data(90, 50, timer * TIMER_PARAM, index);
+//                execute(data);
+//
+//                // click login
+//                data = new Data(1200, 650, (timer * TIMER_PARAM) + 2, index+1);
+//                execute(data);
+//
+//                // checkout
+//                data = new Data(50, 225, (timer* TIMER_PARAM) + 4, index+2);
+//                execute(data);
+//
+//            }
+            if(i+1 == LOOP_LIMIT){//225
+                // button refresh
+                data = new Data(90, 50, timer * TIMER_PARAM, index);
+                execute(data);
+
+                // click login
+                data = new Data(1200, 650, (timer * TIMER_PARAM) + 10, index+1);
+                execute(data);
+
+                // checkout
+                data = new Data(50, 225, (timer* TIMER_PARAM) + 20, index+2);
                 execute(data);
                 break;
             }
 
             // running
             if(i % 2 == 0){
-                data = new Data(25, 25, timer* TIMER_PARAM, index);
+                data = new Data(100, 650, timer* TIMER_PARAM, index);
                 execute(data);
             } else {
-                 data =  new Data(25, 125, timer* TIMER_PARAM, index);
+                 data =  new Data(900, 500, timer* TIMER_PARAM, index);
                 execute(data);
             }
 
